@@ -5,9 +5,11 @@ import Backendless
 class TableViewController: UITableViewController {
     
     private var people: BackendlessDataCollection!
+    var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupActivityIndicator()
         setupBackendlessCollection()
     }
     
@@ -18,7 +20,7 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PersonCell", for: indexPath)
         if let person = people[indexPath.row] as? Person {
-            cell.textLabel?.text = person.name ?? ""
+            cell.textLabel?.text = "\(person.name ?? "NoName"), age: \(person.age)"
         }
         return cell
     }
@@ -28,20 +30,29 @@ class TableViewController: UITableViewController {
     }
     
     private func setupBackendlessCollection() {
-        people = BackendlessDataCollection(entityType: Person.self)
-        people.requestStartedHandler = { print("Request started ...") }
-        people.requestCompletedHandler = { print("... Request completed") }
+        people = BackendlessDataCollection(entityType: Person.self, whereClause: "age>20")
+        people.requestStartedHandler = { self.activityIndicator.startAnimating() }
+        people.requestCompletedHandler = { DispatchQueue.main.async { self.activityIndicator.stopAnimating() } }
         people.dataChangedHandler = { DispatchQueue.main.async { self.tableView.reloadData() } }
         people.errorHandler = { fault in print("Error: \(fault.message ?? "")") }
     }
     
+    private func setupActivityIndicator() {
+        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        activityIndicator.color = .lightGray
+        activityIndicator.hidesWhenStopped = true
+        tableView.backgroundView = activityIndicator
+    }
+    
     @IBAction func pressedAdd(_ sender: Any) {
-        let alert = UIAlertController(title: "Add new Person", message: "Enter the new person's name:", preferredStyle: .alert)
-        alert.addTextField { textField in textField.placeholder = "Name" }
+        let alert = UIAlertController(title: "Add new Person", message: "Enter the new person's name and age:", preferredStyle: .alert)
+        alert.addTextField { textField in textField.placeholder = "name" }
+        alert.addTextField { textField in textField.keyboardType = .numberPad; textField.placeholder = "age" }
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] _ in
-            guard let textField = alert?.textFields?[0] else { return }
+            guard let nameField = alert?.textFields?[0], let ageField = alert?.textFields?[1] else { return }
             let person = Person()
-            person.name = textField.text
+            person.name = nameField.text
+            if !ageField.text!.isEmpty { person.age = Int(ageField.text!)!}
             self.people.add(newObject: person)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
