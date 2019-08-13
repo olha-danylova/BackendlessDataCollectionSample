@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -55,7 +55,6 @@
 			children = (
 				5EC324DF22F96F110007C5FE /* BackendlessDataCollectionSample */,
 				5EC324DE22F96F110007C5FE /* Products */,
-				9A7F754C520A0B71B6C78F99 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,13 +78,6 @@
 				5EC324E722F96F120007C5FE /* Assets.xcassets */,
 			);
 			path = BackendlessDataCollectionSample;
-			sourceTree = "<group>";
-		};
-		9A7F754C520A0B71B6C78F99 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

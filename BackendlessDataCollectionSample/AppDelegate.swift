@@ -9,7 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func initBackendless() {
         Backendless.shared.hostUrl = "https://api.backendless.com"
-        Backendless.shared.initApp(applicationId: "YOUR APP ID", apiKey: "YOUR IOS API KEY")
+        Backendless.shared.initApp(applicationId: "YOUR APPLICATION ID", apiKey: "YOUR IOS API KEY")
         return
     }
     
