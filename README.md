@@ -1,2 +1,2 @@
-![Screenshot1](https://github.com/olgadanylova/BackendlessDataCollectionSample/blob/master/Screenshots/1.png)
-![Screenshot2](https://github.com/olgadanylova/BackendlessDataCollectionSample/blob/master/Screenshots/2.png)
+<img src="./Screenshots/1.png" width="404" height="734">
+<img src="./Screenshots/2.png" width="404" height="734">
