@@ -1,7 +1,7 @@
 This is the sample project that demonstrates usage of the BackendlessDataCollection class binded to UITableView.
 
 **Preparations:**
-1) You shold have the Person table with the `name` column in your database (sample uses it as a model).
+1) You shold have the `Person table with the `name` column in your database (sample uses it as a model).
 
 <img src="./Screenshots/Person.png">
 
