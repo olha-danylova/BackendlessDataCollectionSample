@@ -5,12 +5,16 @@ import Backendless
 class TableViewController: UITableViewController {
     
     private var people: BackendlessDataCollection?
-    var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupActivityIndicator()
-        setupBackendlessCollection()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.global().async {
+            self.setupBackendlessCollection()
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -20,40 +24,58 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PersonCell", for: indexPath)
         if let person = people?[indexPath.row] as? Person {
-            cell.textLabel?.text = "\(person.name ?? "NoName"), age: \(person.age)"
+            cell.textLabel?.text = "\(person.name ?? "NoName")"
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete { let _ = people?.remove(at: indexPath.row) }
+        if editingStyle == .delete {
+            let _ = people?.remove(at: indexPath.row)
+            self.tableView.reloadData()
+        }
     }
     
     private func setupBackendlessCollection() {
-        people = BackendlessDataCollection(entityType: Person.self, whereClause: "age>20")        
-        people?.requestStartedHandler = { self.activityIndicator.startAnimating() }
-        people?.requestCompletedHandler = { DispatchQueue.main.async { self.activityIndicator.stopAnimating() } }
-        people?.dataChangedHandler = { eventType in DispatchQueue.main.async { self.tableView.reloadData() } }
-        people?.errorHandler = { fault in print("Error: \(fault.message ?? "")") }
-    }
-    
-    private func setupActivityIndicator() {
-        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
-        activityIndicator.color = .lightGray
-        activityIndicator.hidesWhenStopped = true
-        tableView.backgroundView = activityIndicator
+        let queryBuilder = DataQueryBuilder()
+        queryBuilder.setPageSize(pageSize: 100)
+        queryBuilder.setSortBy(sortBy: ["name"])
+        people = BackendlessDataCollection(entityType: Person.self, queryBuilder: queryBuilder)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     @IBAction func pressedAdd(_ sender: Any) {
-        let alert = UIAlertController(title: "Add new Person", message: "Enter the new person's name and age:", preferredStyle: .alert)
-        alert.addTextField { textField in textField.placeholder = "name" }
-        alert.addTextField { textField in textField.keyboardType = .numberPad; textField.placeholder = "age" }
+        let alert = UIAlertController(title: "Add new Person", message: "Enter the new person's name:", preferredStyle: .alert)
+        alert.addTextField {
+            textField in textField.placeholder = "name"
+        }
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] _ in
-            guard let nameField = alert?.textFields?[0], let ageField = alert?.textFields?[1] else { return }
+            guard let nameField = alert?.textFields?[0] else {
+                return
+            }
             let person = Person()
             person.name = nameField.text
-            if !ageField.text!.isEmpty { person.age = Int(ageField.text!)!}
             self.people?.add(newObject: person)
+            self.tableView.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        guard let person = people?[indexPath.row] as? Person else {
+            return
+        }
+        let alert = UIAlertController(title: "Update Person \n(current name: \(person.name ?? "NoName"))", message: "Enter new name:", preferredStyle: .alert)
+        alert.addTextField {
+            textField in textField.placeholder = "name"
+        }
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] _ in
+            guard let nameField = alert?.textFields?[0] else { return }
+            person.name = nameField.text
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
