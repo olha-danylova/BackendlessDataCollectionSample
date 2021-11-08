@@ -31,15 +31,24 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let _ = people?.remove(at: indexPath.row)
-            self.tableView.reloadData()
+            if let person = people?[indexPath.row] {
+                // sync data with Backendless
+                Backendless.shared.data.of(Person.self).remove(entity: person, responseHandler: { removed in
+                    let _ = self.people?.remove(at: indexPath.row)
+                    self.tableView.reloadData()
+                }, errorHandler: { fault in
+                    let errorAlert = UIAlertController(title: "Error", message: fault.message, preferredStyle: .alert)
+                    errorAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                    self.present(errorAlert, animated: true, completion: nil)
+                })
+            }
         }
     }
     
     private func setupBackendlessCollection() {
         let queryBuilder = DataQueryBuilder()
-        queryBuilder.setPageSize(pageSize: 100)
-        queryBuilder.setSortBy(sortBy: ["name"])
+        queryBuilder.pageSize = 100
+        queryBuilder.sortBy = ["name"]
         people = BackendlessDataCollection(entityType: Person.self, queryBuilder: queryBuilder)
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -57,8 +66,16 @@ class TableViewController: UITableViewController {
             }
             let person = Person()
             person.name = nameField.text
-            self.people?.add(newObject: person)
-            self.tableView.reloadData()
+            
+            // sync data with Backendless
+            Backendless.shared.data.of(Person.self).save(entity: person, responseHandler: { savedPerson in
+                self.people?.add(newObject: savedPerson)
+                self.tableView.reloadData()
+            }, errorHandler: { fault in
+                let errorAlert = UIAlertController(title: "Error", message: fault.message, preferredStyle: .alert)
+                errorAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                self.present(errorAlert, animated: true, completion: nil)
+            })
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -75,7 +92,15 @@ class TableViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] _ in
             guard let nameField = alert?.textFields?[0] else { return }
             person.name = nameField.text
-            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            
+            // sync data with Backendless
+            Backendless.shared.data.of(Person.self).save(entity: person, responseHandler: { savedPerson in
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }, errorHandler: { fault in
+                let errorAlert = UIAlertController(title: "Error", message: fault.message, preferredStyle: .alert)
+                errorAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                self.present(errorAlert, animated: true, completion: nil)
+            })
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)

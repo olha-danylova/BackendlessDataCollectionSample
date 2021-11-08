@@ -13,6 +13,7 @@
 		5EC324EB22F96F120007C5FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC324E922F96F120007C5FE /* LaunchScreen.storyboard */; };
 		5EC324F322F96F7E0007C5FE /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC324F222F96F7E0007C5FE /* TableViewController.swift */; };
 		5EC324F922F970C30007C5FE /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC324F822F970C30007C5FE /* Person.swift */; };
+		CDF35C13888068212217CA31 /* Pods_BackendlessDataCollectionSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 086BF13E6494935D682BAD68 /* Pods_BackendlessDataCollectionSample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		086BF13E6494935D682BAD68 /* Pods_BackendlessDataCollectionSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackendlessDataCollectionSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC324DD22F96F110007C5FE /* BackendlessDataCollectionSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackendlessDataCollectionSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC324E022F96F110007C5FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC324E522F96F110007C5FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -37,6 +39,8 @@
 		5EC324EC22F96F120007C5FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EC324F222F96F7E0007C5FE /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		5EC324F822F970C30007C5FE /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		A61ED62EBA86AFC7D4BC89C7 /* Pods-BackendlessDataCollectionSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackendlessDataCollectionSample.release.xcconfig"; path = "Target Support Files/Pods-BackendlessDataCollectionSample/Pods-BackendlessDataCollectionSample.release.xcconfig"; sourceTree = "<group>"; };
+		F6B311A1C655C7EEAE1C9E04 /* Pods-BackendlessDataCollectionSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackendlessDataCollectionSample.debug.xcconfig"; path = "Target Support Files/Pods-BackendlessDataCollectionSample/Pods-BackendlessDataCollectionSample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,18 +48,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDF35C13888068212217CA31 /* Pods_BackendlessDataCollectionSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5AE68368A508D4A50B9792A8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				086BF13E6494935D682BAD68 /* Pods_BackendlessDataCollectionSample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5EC324D422F96F100007C5FE = {
 			isa = PBXGroup;
 			children = (
 				5EC324DF22F96F110007C5FE /* BackendlessDataCollectionSample */,
 				5EC324DE22F96F110007C5FE /* Products */,
 				BE8030D8BDDDB108EEA1C9AA /* Pods */,
+				5AE68368A508D4A50B9792A8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,6 +98,8 @@
 		BE8030D8BDDDB108EEA1C9AA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				F6B311A1C655C7EEAE1C9E04 /* Pods-BackendlessDataCollectionSample.debug.xcconfig */,
+				A61ED62EBA86AFC7D4BC89C7 /* Pods-BackendlessDataCollectionSample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -95,10 +111,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5EC324EF22F96F120007C5FE /* Build configuration list for PBXNativeTarget "BackendlessDataCollectionSample" */;
 			buildPhases = (
+				931100B0D441BF48DBB97A17 /* [CP] Check Pods Manifest.lock */,
 				5EC324D922F96F110007C5FE /* Sources */,
 				5EC324DA22F96F110007C5FE /* Frameworks */,
 				5EC324DB22F96F110007C5FE /* Resources */,
 				5EC324F722F970410007C5FE /* Embed Frameworks */,
+				7EE3D7757DC0CD80B585DD52 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -116,7 +134,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1030;
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = Backendless;
 				TargetAttributes = {
 					5EC324DC22F96F110007C5FE = {
@@ -154,6 +172,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7EE3D7757DC0CD80B585DD52 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BackendlessDataCollectionSample/Pods-BackendlessDataCollectionSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BackendlessDataCollectionSample/Pods-BackendlessDataCollectionSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BackendlessDataCollectionSample/Pods-BackendlessDataCollectionSample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		931100B0D441BF48DBB97A17 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BackendlessDataCollectionSample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5EC324D922F96F110007C5FE /* Sources */ = {
@@ -306,6 +366,7 @@
 		};
 		5EC324F022F96F120007C5FE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6B311A1C655C7EEAE1C9E04 /* Pods-BackendlessDataCollectionSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -315,7 +376,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = BackendlessDataCollectionSample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -329,6 +390,7 @@
 		};
 		5EC324F122F96F120007C5FE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A61ED62EBA86AFC7D4BC89C7 /* Pods-BackendlessDataCollectionSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -338,7 +400,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = BackendlessDataCollectionSample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
