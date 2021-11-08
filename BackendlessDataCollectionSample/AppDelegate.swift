@@ -8,8 +8,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     private let HOST_URL = "https://api.backendless.com"
-    private let APP_ID = "2572F312-6EB9-CA21-FF89-15662D181F00"
-    private let API_KEY = "DDE11615-EDD9-430F-A47B-F027DA265AEA"
+    private let APP_ID = "APP ID"
+    private let API_KEY = "IOS API KEY"
     
     func initBackendless() {
         Backendless.shared.hostUrl = HOST_URL
